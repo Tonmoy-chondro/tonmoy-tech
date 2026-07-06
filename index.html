@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tonmoy Tech | AI & Google Apps Script Solutions</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; line-height: 1.6; }
+        
+        /* রেসপনসিভ লোগো হেডার সেকশন */
+        header { 
+            background: #1e293b; 
+            padding: 15px 40px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid #3b82f6; 
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        .brand-logo { 
+            height: 60px; /* ডেস্কটপে লোগোর সাইজ */
+            width: auto;
+            object-fit: contain;
+        }
+        nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #3b82f6; }
+
+        /* মূল কন্টেইনার */
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        
+        /* হিরো সেকশন */
+        .hero { text-align: center; padding: 50px 20px; background: radial-gradient(circle, #1e293b 0%, #0f172a 100%); border-radius: 12px; margin-bottom: 40px; border: 1px solid #1e293b; }
+        .hero h2 { font-size: 2.2rem; margin-bottom: 15px; color: #f1f5f9; }
+        .hero p { color: #cbd5e1; font-size: 1.2rem; max-width: 650px; margin: 0 auto; }
+        
+        .section-title { font-size: 1.8rem; color: #3b82f6; margin-bottom: 25px; border-left: 4px solid #3b82f6; padding-left: 12px; margin-top: 50px; }
+        
+        /* গ্রিড সিস্টেম: মোবাইল ও ডেস্কটপ দুই জায়গাতেই অটো ফিট হবে */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .card { background: #1e293b; padding: 30px; border-radius: 12px; border: 1px solid #334155; transition: transform 0.3s, border-color 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
+        .card:hover { transform: translateY(-5px); border-color: #3b82f6; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.1); }
+        .card h3 { color: #f1f5f9; margin-bottom: 12px; font-size: 1.3rem; }
+        .card p { color: #94a3b8; font-size: 0.98rem; margin-bottom: 20px; }
+        
+        /* লিংক বোতাম */
+        .btn { display: inline-block; background: #3b82f6; color: white; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 0.95rem; text-align: center; width: 100%; margin-top: auto; transition: background 0.3s; }
+        .btn:hover { background: #2563eb; }
+        
+        /* স্লাইডার সেকশন */
+        .slider-container { width: 100%; max-width: 850px; margin: 0 auto; overflow: hidden; border-radius: 12px; border: 2px solid #334155; box-shadow: 0 15px 30px rgba(0,0,0,0.5); }
+        .slider { display: flex; transition: transform 0.6s ease-in-out; }
+        .slider img { width: 100%; object-fit: cover; max-height: 480px; display: block; }
+        
+        /* টিম সেকশন */
+        .team-card { text-align: center; align-items: center; }
+        .team-card h3 { margin-top: 15px; color: #f1f5f9; }
+        .team-card p { color: #3b82f6; font-weight: bold; font-size: 1rem; }
+        .team-img { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid #3b82f6; }
+        
+        /* কন্টাক্ট সেকশন */
+        .contact-info { background: #1e293b; padding: 35px; border-radius: 12px; border: 1px solid #334155; }
+        .contact-info p { margin-bottom: 12px; font-size: 1.1rem; color: #cbd5e1; }
+        .contact-info strong { color: #3b82f6; }
+        
+        footer { text-align: center; padding: 25px; color: #64748b; font-size: 0.9rem; border-top: 1px solid #334155; margin-top: 60px; }
+
+        /* বিশেষ মোবাইল রেসপনসিভ সিএসএস (Media Query) */
+        @media (max-width: 768px) {
+            header { 
+                flex-direction: column; 
+                padding: 20px;
+                text-align: center;
+            }
+            .brand-logo { 
+                height: 50px; /* মোবাইলে লোগো সামান্য ছোট হবে যাতে স্ক্রিনে সুন্দর দেখায় */
+                margin-bottom: 15px;
+            }
+            nav a { margin: 0 10px; font-size: 0.9rem; }
+            .hero h2 { font-size: 1.8rem; }
+            .hero p { font-size: 1rem; }
+            .section-title { font-size: 1.5rem; }
+            .slider img { max-height: 280px; } /* মোবাইলে ছবির হাইট ঠিক রাখার জন্য */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- হেডার: যেখানে লোগোটি সুন্দরভাবে বসানো হয়েছে -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Tonmoy Tech Logo" class="brand-logo">
+        </div>
+        <nav>
+            <a href="#projects">Projects</a>
+            <a href="#clients">Clients</a>
+            <a href="#team">Our Team</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h2>We Automate Your Business Using AI</h2>
+            <p>We build powerful web applications, custom workflows, and intelligent AI tools built entirely on Google Apps Script.</p>
+        </div>
+
+        <!-- Featured Projects Section -->
+        <div class="section-title" id="projects">Featured Projects (Web Apps)</div>
+        <div class="grid">
+            <div class="card">
+                <h3>AI Email Responder</h3>
+                <p>An Apps Script tool that reads incoming support emails and drafts intelligent responses using AI.</p>
+                <a href="https://google.com" class="btn" target="_blank">Launch App</a>
+            </div>
+            <div class="card">
+                <h3>Smart Sheets Dashboard</h3>
+                <p>Automated business reporting dashboard that pulls data from multiple APIs into Google Sheets.</p>
+                <a href="https://google.com" class="btn" target="_blank">Launch App</a>
+            </div>
+            
+            <!-- ভবিষ্যতে ৩ নম্বর বা তার বেশি প্রজেক্ট যুক্ত করতে চাইলে শুধু এই নিচের ৩টি লাইন কপি করে বসিয়ে দিলেই হবে -->
+            <!-- 
+            <div class="card">
+                <h3>প্রজেক্টের নাম</h3>
+                <p>প্রজেক্টের বিবরণ</p>
+                <a href="ওয়েব_অ্যাপ_লিংক" class="btn" target="_blank">Launch App</a>
+            </div> 
+            -->
+        </div>
+
+        <!-- Clients & Deals Slider Section -->
+        <div class="section-title" id="clients">Our Client Success Stories</div>
+        <div class="slider-container">
+            <div class="slider" id="imageSlider">
+                <img src="client1.jpg" alt="Client Deal 1">
+                <img src="client2.jpg" alt="Client Deal 2">
+                <img src="client3.jpg" alt="Client Deal 3">
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="section-title" id="team">Our Leadership Team</div>
+        <div class="grid">
+            <div class="card team-card">
+                <img src="chairman.jpg" alt="Chairman" class="team-img">
+                <h3>নাম এখানে লিখুন</h3>
+                <p>Chairman, Tonmoy Tech</p>
+            </div>
+            <div class="card team-card">
+                <img src="ceo.jpg" alt="CEO" class="team-img">
+                <h3>আপনার নাম এখানে লিখুন</h3>
+                <p>Founder & CEO</p>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section-title" id="contact">Contact Us</div>
+        <div class="contact-info">
+            <p><strong>Address:</strong> আপনার অফিসের ঠিকানা বা এলাকার নাম, ঢাকা, Bangladesh</p>
+            <p><strong>Email:</strong> info@tonmoytech.com</p>
+            <p><strong>Phone:</strong> +880 1XXXX-XXXXXX</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Tonmoy Tech. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const slider = document.getElementById('imageSlider');
+        const images = slider.getElementsByTagName('img');
+        let index = 0;
+
+        function changeImage() {
+            index++;
+            if (index >= images.length) {
+                index = 0;
+            }
+            slider.style.transform = `translateX(${-index * 100}%)`;
+        }
+        setInterval(changeImage, 3000);
+    </script>
+
+</body>
+</html>
